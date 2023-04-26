@@ -13,8 +13,6 @@ public final class EstadoEntity {
     private String nombre;
     private TipoEstadoEntity tipoEstado;
 
-
-
     public EstadoEntity(UUID identificador, String nombre, TipoEstadoEntity tipoEstado) {
         super();
         setIdentificador(identificador);
@@ -22,20 +20,17 @@ public final class EstadoEntity {
         setTipoEstado(tipoEstado);
     }
 
-    private final EstadoEntity setIdentificador(final UUID identificador) {
+    private final void setIdentificador(final UUID identificador) {
         this.identificador = UtilUUID.getDefault(identificador);
-        return this;
     }
 
-    private final EstadoEntity setNombre(final String nombre) {
+    private final void setNombre(final String nombre) {
         this.nombre = UtilText.applyTrim(nombre);
-        return this;
     }
 
-    private final EstadoEntity setTipoEstado(final TipoEstadoEntity tipoEstado) {
+    private final void setTipoEstado(final TipoEstadoEntity tipoEstado) {
 
         this.tipoEstado = tipoEstado;
-        return this;
     }
 
     public final UUID getIdentificador() {
