@@ -19,7 +19,7 @@ public class TipoIdentificacionEntity {
         setNombre(UtilText.getDefaultValue());
         setDescripcion(UtilText.getDefaultValue());
     }
-    public TipoIdentificacionEntity(UUID identificador, String nombre, String descripcion, EstadoEntity estado) {
+    public TipoIdentificacionEntity(UUID identificador, String nombre, String descripcion) {
         setIdentificador(identificador);
         setNombre(nombre);
         setDescripcion(descripcion);
@@ -36,10 +36,7 @@ public class TipoIdentificacionEntity {
     public String getDescripcion() {
         return descripcion;
     }
-    
-    public EstadoEntity getEstado() {
-		return estado;
-	}
+
 
 
     private void setIdentificador(final UUID identificador) {
@@ -54,9 +51,6 @@ public class TipoIdentificacionEntity {
         this.descripcion = UtilText.applyTrim(descripcion);
     }
 
-    public void setEstado(EstadoEntity estado) {
-		this.estado = UtilObject.getDefault(estado, EstadoEntity.getDefaultObject());
-	}
     
     public static TipoIdentificacionEntity getDefaultObject (){
         return DEFAULT_OBJECT;
