@@ -8,22 +8,18 @@ import co.edu.uco.publiuco.utils.UtilUUID;
 public class EscritorEntity {
     private UUID identificador;
     private PersonaEntity datosPersona;
-    private TipoRelacionInstitucionEntity tipoRelacionInstitucion;
     private EstadoEntity estado;
-    public static EscritorEntity DEFAULT_OBJECT = new EscritorEntity();
 
     private EscritorEntity() {
         super();
         setIdentificador(UtilUUID.getDefaultValue());
-        setDatosPersona(PersonaEntity.getDefaultObject());
-        setTipoRelacionInstitucion(TipoRelacionInstitucionEntity.getDefaultObject());
-        setEstado(EstadoEntity.getDefaultObject());
+        setDatosPersona(PersonaEntity.create());
+        setEstado(EstadoEntity.create());
     }
-    public EscritorEntity(UUID identificador, PersonaEntity datosPersona, TipoRelacionInstitucionEntity tipoRelacionInstitucion, EstadoEntity estado) {
+    public EscritorEntity(UUID identificador, PersonaEntity datosPersona, EstadoEntity estado) {
         super();
         setIdentificador(identificador);
         setDatosPersona(datosPersona);
-        setTipoRelacionInstitucion(tipoRelacionInstitucion);
         setEstado(estado);
     }
 
@@ -35,30 +31,27 @@ public class EscritorEntity {
         return datosPersona;
     }
 
-    public TipoRelacionInstitucionEntity getTipoRelacionInstitucion() {
-        return tipoRelacionInstitucion;
-    }
 
     public EstadoEntity getEstado() {
         return estado;
     }
 
-    private void setIdentificador(final UUID identificador) {
+    public EscritorEntity setIdentificador(final UUID identificador) {
         this.identificador = UtilUUID.getDefault(identificador);
+        return this;
     }
 
-    private void setDatosPersona(final PersonaEntity datosPersona) {
-        this.datosPersona = UtilObject.getDefault(datosPersona, PersonaEntity.getDefaultObject());
+    public EscritorEntity setDatosPersona(final PersonaEntity datosPersona) {
+        this.datosPersona = UtilObject.getDefault(datosPersona, PersonaEntity.create());
+        return this;
     }
 
-    private void setTipoRelacionInstitucion(TipoRelacionInstitucionEntity tipoRelacionInstitucion) {
-        this.tipoRelacionInstitucion = UtilObject.getDefault(tipoRelacionInstitucion, TipoRelacionInstitucionEntity.getDefaultObject());
-    }
 
-    private void setEstado(EstadoEntity estado) {
-        this.estado = UtilObject.getDefault(estado, EstadoEntity.getDefaultObject());
+    public EscritorEntity setEstado(final EstadoEntity estado) {
+        this.estado = UtilObject.getDefault(estado,EstadoEntity.create());
+        return this;
     }
-    public static EscritorEntity getDefaultObject (){
-        return DEFAULT_OBJECT;
+    public static EscritorEntity create (){
+        return new EscritorEntity();
     }
 }

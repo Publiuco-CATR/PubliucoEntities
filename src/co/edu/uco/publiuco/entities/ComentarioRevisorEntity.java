@@ -9,24 +9,21 @@ import java.util.UUID;
 public class ComentarioRevisorEntity {
     private UUID identificador;
     private RevisorRevisionEntity revisorRevision;
-    private TipoComentarioRevisorEntity tipoComentarioRevisor;
-    private String comentario;
-    public static ComentarioRevisorEntity DEFAULT_OBJECT = new ComentarioRevisorEntity();
+    private TipoComentarioRevisorEntity tipo;
+    private String contenido;
 
-    public ComentarioRevisorEntity(UUID identificador, RevisorRevisionEntity revisorRevision, TipoComentarioRevisorEntity tipoComentarioRevisor, String comentario) {
-        super();
+    public ComentarioRevisorEntity(UUID identificador, RevisorRevisionEntity revisorRevision, TipoComentarioRevisorEntity tipo, String contenido) {
         setIdentificador(identificador);
         setRevisorRevision(revisorRevision);
-        setTipoComentarioRevisor(tipoComentarioRevisor);
-        setComentario(comentario);
+        setTipo(tipo);
+        setContenido(contenido);
 
     }
     private ComentarioRevisorEntity() {
-        super();
         setIdentificador(UtilUUID.getDefaultValue());
-        setRevisorRevision(RevisorRevisionEntity.getDefaultObject());
-        setTipoComentarioRevisor(TipoComentarioRevisorEntity.getDefaultObject());
-        setComentario(UtilText.getDefaultValue());
+        setRevisorRevision(RevisorRevisionEntity.create());
+        setTipo(TipoComentarioRevisorEntity.create());
+        setContenido(UtilText.getDefaultValue());
 
     }
 
@@ -38,30 +35,34 @@ public class ComentarioRevisorEntity {
         return revisorRevision;
     }
 
-    public TipoComentarioRevisorEntity getTipoComentarioRevisor() {
-        return tipoComentarioRevisor;
+    public TipoComentarioRevisorEntity getTipo() {
+        return tipo;
     }
 
-    public String getComentario() {
-        return comentario;
+    public String getContenido() {
+        return contenido;
     }
-
-    private void setIdentificador(final UUID identificador) {
+    public ComentarioRevisorEntity setIdentificador(final UUID identificador) {
         this.identificador = UtilUUID.getDefault(identificador);
+        return this;
     }
 
-    private void setRevisorRevision(final RevisorRevisionEntity revisorRevision) {
-        this.revisorRevision = UtilObject.getDefault(revisorRevision, RevisorRevisionEntity.getDefaultObject());
+    public ComentarioRevisorEntity setRevisorRevision(final RevisorRevisionEntity revisorRevision) {
+        this.revisorRevision = UtilObject.getDefault(revisorRevision, RevisorRevisionEntity.create());
+        return this;
     }
 
-    private void setTipoComentarioRevisor(final TipoComentarioRevisorEntity tipoComentarioRevisor) {
-        this.tipoComentarioRevisor = UtilObject.getDefault(tipoComentarioRevisor, TipoComentarioRevisorEntity.getDefaultObject());
+    public ComentarioRevisorEntity setTipo(final TipoComentarioRevisorEntity tipoComentarioRevisor) {
+        this.tipo = UtilObject.getDefault(tipoComentarioRevisor, TipoComentarioRevisorEntity.create());
+        return this;
     }
 
-    private void setComentario(final String comentario) {
-        this.comentario = UtilText.applyTrim(comentario);
+    public ComentarioRevisorEntity setContenido(final String contenido) {
+        this.contenido = UtilText.applyTrim(contenido);
+        return this;
     }
-    public static ComentarioRevisorEntity getDefaultObject (){
-        return DEFAULT_OBJECT;
+    
+    public static ComentarioRevisorEntity create (){
+        return new ComentarioRevisorEntity();
     }
 }

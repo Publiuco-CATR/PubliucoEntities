@@ -11,36 +11,38 @@ import java.util.UUID;
 public final class EstadoEntity {
     private UUID identificador;
     private String nombre;
-    private TipoEstadoEntity tipoEstado;
-    public static EstadoEntity DEFAULT_OBJECT = new EstadoEntity();
+    private TipoEstadoEntity tipo;
 
 
     private EstadoEntity() {
         super();
         setIdentificador(UtilUUID.getDefaultValue());
         setNombre(UtilText.getDefaultValue());
-        setTipoEstado(TipoEstadoEntity.getDefaultObject());
+        setTipo(TipoEstadoEntity.create());
     }
 
 
-    public EstadoEntity(UUID identificador, String nombre, TipoEstadoEntity tipoEstado) {
+    public EstadoEntity(UUID identificador, String nombre, TipoEstadoEntity tipo) {
         super();
         setIdentificador(identificador);
         setNombre(nombre);
-        setTipoEstado(tipoEstado);
+        setTipo(tipo);
     }
 
-    private final void setIdentificador(final UUID identificador) {
+    public final EstadoEntity setIdentificador(final UUID identificador) {
         this.identificador = UtilUUID.getDefault(identificador);
+        return this;
     }
 
-    private final void setNombre(final String nombre) {
+    public final EstadoEntity setNombre(final String nombre) {
         this.nombre = UtilText.applyTrim(nombre);
+        return this;
     }
 
-    private final void setTipoEstado(final TipoEstadoEntity tipoEstado) {
+    public final EstadoEntity setTipo(final TipoEstadoEntity tipoEstado) {
 
-        this.tipoEstado = UtilObject.getDefault(tipoEstado, TipoEstadoEntity.getDefaultObject());
+        this.tipo = UtilObject.getDefault(tipoEstado, TipoEstadoEntity.create());
+        return this;
     }
 
     public final UUID getIdentificador() {
@@ -51,11 +53,11 @@ public final class EstadoEntity {
         return nombre;
     }
 
-    public final TipoEstadoEntity getTipoEstado() {
-        return tipoEstado;
+    public final TipoEstadoEntity getTipo() {
+        return tipo;
     }
 
-    public static EstadoEntity getDefaultObject(){
-        return DEFAULT_OBJECT;
+    public static EstadoEntity create(){
+        return new EstadoEntity();
     }
 }

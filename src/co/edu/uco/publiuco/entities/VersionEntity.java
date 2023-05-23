@@ -1,5 +1,6 @@
 package co.edu.uco.publiuco.entities;
 
+import co.edu.uco.publiuco.utils.UtilBoolean;
 import co.edu.uco.publiuco.utils.UtilDate;
 import co.edu.uco.publiuco.utils.UtilNumber;
 import co.edu.uco.publiuco.utils.UtilObject;
@@ -11,53 +12,58 @@ import java.util.UUID;
 
 public class VersionEntity {
     private UUID identificador;
-    private PublicacionEntity publicacion;
     private VersionEntity versionAnterior;
+    private boolean tieneVersionAnterior;
     private Integer numeroVersion;
     private LocalDateTime fechaCreacion;
-    private LocalDateTime ultimaFechaModificacion;
+    private LocalDateTime fechaUltimaModificacion;
     private String titulo;
     private String resumen;
     private String cuerpo;
     private EstadoEntity estado;
 
-    public static VersionEntity DEFAULT_OBJECT = new VersionEntity();
+    public static final VersionEntity DEFAULT_OBJECT = new VersionEntity();
 
 
     private VersionEntity() {
         setIdentificador(UtilUUID.getDefaultValue());
-        setPublicacion(PublicacionEntity.getDefaultObject());
-        setVersionAnterior(getDefaultObject());
+        setVersionAnterior(create());
         setNumeroVersion(UtilNumber.getIntegerDefaultValue());
         setFechaCreacion(UtilDate.getDefaultValue());
-        setUltimaFechaModificacion(UtilDate.getDefaultValue());
+        setFechaUltimaModificacion(UtilDate.getDefaultValue());
         setTitulo(UtilText.getDefaultValue());
         setResumen(UtilText.getDefaultValue());
         setCuerpo(UtilText.getDefaultValue());
-        setEstado(EstadoEntity.getDefaultObject());
+        setEstado(EstadoEntity.create());
+        setTieneVersionAnterior(UtilBoolean.getDefaultValue());
     }
 
-    public VersionEntity(UUID identificador, PublicacionEntity publicacion, VersionEntity versionAnterior, int numeroVersion, LocalDateTime fechaCreacion, LocalDateTime ultimaFechaModificacion, String titulo, String resumen, String cuerpo, EstadoEntity estado) {
+    public VersionEntity(UUID identificador, VersionEntity versionAnterior, int numeroVersion, LocalDateTime fechaCreacion, LocalDateTime fechaUltimaModificacion, String titulo, String resumen, String cuerpo, EstadoEntity estado,boolean tieneVersionAnterior) {
         setIdentificador(identificador);
-        setPublicacion(publicacion);
         setVersionAnterior(versionAnterior);
         setNumeroVersion(numeroVersion);
         setFechaCreacion(fechaCreacion);
-        setUltimaFechaModificacion(ultimaFechaModificacion);
+        setFechaUltimaModificacion(fechaUltimaModificacion);
         setTitulo(titulo);
         setResumen(resumen);
         setCuerpo(cuerpo);
         setEstado(estado);
+        setTieneVersionAnterior(tieneVersionAnterior);
     }
 
+    
+    public boolean tieneVersionAnterior() {
+		return tieneVersionAnterior;
+	}
 
-    public UUID getIdentificador() {
+	private void setTieneVersionAnterior(boolean tieneVersionAnterior) {
+		this.tieneVersionAnterior = UtilBoolean.getDefault(tieneVersionAnterior);
+	}
+
+	public UUID getIdentificador() {
         return identificador;
     }
 
-    public PublicacionEntity getPublicacion() {
-        return publicacion;
-    }
 
     public VersionEntity getVersionAnterior() {
         return versionAnterior;
@@ -71,8 +77,8 @@ public class VersionEntity {
         return fechaCreacion;
     }
 
-    public LocalDateTime getUltimaFechaModificacion() {
-        return ultimaFechaModificacion;
+    public LocalDateTime getFechaUltimaModificacion() {
+        return fechaUltimaModificacion;
     }
 
     public String getTitulo() {
@@ -91,46 +97,56 @@ public class VersionEntity {
         return estado;
     }
 
-    private void setIdentificador(final UUID identificador) {
+    public VersionEntity setIdentificador(final UUID identificador) {
         this.identificador = UtilUUID.getDefault(identificador);
+        return this;
     }
 
-    private void setPublicacion(final PublicacionEntity publicacion) {
-        this.publicacion = UtilObject.getDefault(publicacion, PublicacionEntity.getDefaultObject());
+
+    public VersionEntity setVersionAnterior(final VersionEntity versionAnterior) {
+    	if(tieneVersionAnterior()) {
+            this.versionAnterior = UtilObject.getDefault(versionAnterior, VersionEntity.create());
+        }else {
+			this.versionAnterior = (VersionEntity) UtilObject.getNullValue();
+        }
+    	return this;
     }
 
-    private void setVersionAnterior(VersionEntity versionAnterior) {
-        this.versionAnterior = UtilObject.getDefault(versionAnterior, VersionEntity.getDefaultObject());
-    }
-
-    private void setNumeroVersion(final Integer numeroVersion) {
+    public VersionEntity setNumeroVersion(final Integer numeroVersion) {
         this.numeroVersion = UtilNumber.getDefaultInt(numeroVersion);
+        return this;
     }
 
-    private void setFechaCreacion(final LocalDateTime fechaCreacion) {
+    public VersionEntity setFechaCreacion(final LocalDateTime fechaCreacion) {
         this.fechaCreacion = UtilDate.getDefault(fechaCreacion);
+        return this;
     }
 
-    private void setUltimaFechaModificacion(final LocalDateTime ultimaFechaModificacion) {
-        this.ultimaFechaModificacion = UtilDate.getDefault(ultimaFechaModificacion);
+    public VersionEntity setFechaUltimaModificacion(final LocalDateTime ultimaFechaModificacion) {
+        this.fechaUltimaModificacion = UtilDate.getDefault(ultimaFechaModificacion);
+        return this;
     }
 
-    private void setTitulo(final String titulo) {
+    public VersionEntity setTitulo(final String titulo) {
         this.titulo = UtilText.applyTrim(titulo);
+        return this;
     }
 
-    private void setResumen(final String resumen) {
+    public VersionEntity setResumen(final String resumen) {
         this.resumen = UtilText.applyTrim(resumen);
+        return this;
     }
 
-    private void setCuerpo(final String cuerpo) {
+    public VersionEntity setCuerpo(final String cuerpo) {
         this.cuerpo = UtilText.applyTrim(cuerpo);
+        return this;
     }
 
-    private void setEstado(final EstadoEntity estado) {
-        this.estado = UtilObject.getDefault(estado, EstadoEntity.getDefaultObject());
+    public VersionEntity setEstado(final EstadoEntity estado) {
+        this.estado = UtilObject.getDefault(estado, EstadoEntity.create());
+        return this;
     }
-    public static VersionEntity getDefaultObject (){
-        return DEFAULT_OBJECT;
+    public static VersionEntity create (){
+        return new VersionEntity();
     }
 }

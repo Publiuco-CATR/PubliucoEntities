@@ -9,80 +9,98 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class ReporteEntity {
-    private UUID identificador;
-    private LectorEntity lector;
-    private ComentarioLectorEntity comentario;
-    private String razon;
-    private TipoReporteEntity tipoReporte;
-    private LocalDateTime fechaReporte;
-    public static ReporteEntity DEFAULT_OBJECT = new ReporteEntity();
+	   private UUID identificador;
+	    private LectorEntity lector;
+	    private ComentarioLectorEntity comentario;
+	    private String razon;
+	    private TipoReporteEntity tipo;
+	    private LocalDateTime fechaReporte;
+	    private EstadoEntity estado;
 
-    private ReporteEntity() {
-        setIdentificador(UtilUUID.getDefaultValue());
-        setLector(LectorEntity.getDefaultObject());
-        setComentario(ComentarioLectorEntity.getDefaultObject());
-        setRazon(UtilText.getDefaultValue());
-        setTipoReporte(TipoReporteEntity.getDefaultObject());
-        setFechaReporte(UtilDate.getDefaultValue());
-    }
+	    private ReporteEntity() {
+	        setIdentificador(UtilUUID.getDefaultValue());
+	        setLector(LectorEntity.create());
+	        setComentario(ComentarioLectorEntity.create());
+	        setRazon(UtilText.getDefaultValue());
+	        setTipo(TipoReporteEntity.create());
+	        setFechaReporte(UtilDate.getDefaultValue());
+	        setEstado(EstadoEntity.create());
+	    }
 
-    public ReporteEntity(UUID identificador, LectorEntity lector, ComentarioLectorEntity comentario, String razon, TipoReporteEntity tipoReporte, LocalDateTime fechaReporte) {
-        setIdentificador(identificador);
-        setLector(lector);
-        setComentario(comentario);
-        setRazon(razon);
-        setTipoReporte(tipoReporte);
-        setFechaReporte(fechaReporte);
-    }
+	    public ReporteEntity(UUID identificador, LectorEntity lector, ComentarioLectorEntity comentario, String razon, TipoReporteEntity tipo, LocalDateTime fechaReporte, EstadoEntity estado) {
+	        setIdentificador(identificador);
+	        setLector(lector);
+	        setComentario(comentario);
+	        setRazon(razon);
+	        setTipo(tipo);
+	        setFechaReporte(fechaReporte);
+	        setEstado(estado);
+	    }
 
-    public UUID getIdentificador() {
-        return identificador;
-    }
+	    
+	    public EstadoEntity getEstado() {
+			return estado;
+		}
 
-    public LectorEntity getLector() {
-        return lector;
-    }
 
-    public ComentarioLectorEntity getComentario() {
-        return comentario;
-    }
+		public UUID getIdentificador() {
+	        return identificador;
+	    }
 
-    public String getRazon() {
-        return razon;
-    }
+	    public LectorEntity getLector() {
+	        return lector;
+	    }
 
-    public TipoReporteEntity getTipoReporte() {
-        return tipoReporte;
-    }
+	    public ComentarioLectorEntity getComentario() {
+	        return comentario;
+	    }
 
-    public LocalDateTime getFechaReporte() {
-        return fechaReporte;
-    }
+	    public String getRazon() {
+	        return razon;
+	    }
 
-    private void setIdentificador(final UUID identificador) {
-        this.identificador = UtilUUID.getDefault(identificador);
-    }
+	    public TipoReporteEntity getTipo() {
+	        return tipo;
+	    }
 
-    private void setLector(final LectorEntity lector) {
-        this.lector = UtilObject.getDefault(lector, LectorEntity.getDefaultObject());
-    }
+	    public LocalDateTime getFechaReporte() {
+	        return fechaReporte;
+	    }
 
-    private void setComentario(final ComentarioLectorEntity comentario) {
-        this.comentario = UtilObject.getDefault(comentario, ComentarioLectorEntity.getDefaultObject());
-    }
+	    public ReporteEntity setIdentificador(final UUID identificador) {
+	        this.identificador = UtilUUID.getDefault(identificador);
+	        return this;
+	    }
 
-    private void setRazon(final String razon) {
-        this.razon = UtilText.applyTrim(razon);
-    }
+	    public ReporteEntity setLector(final LectorEntity lector) {
+	        this.lector = UtilObject.getDefault(lector, LectorEntity.create());
+	        return this;
+	    }
 
-    private void setTipoReporte(final TipoReporteEntity tipoReporte) {
-        this.tipoReporte = UtilObject.getDefault(tipoReporte, TipoReporteEntity.getDefaultObject());
-    }
+	    public ReporteEntity setComentario(final ComentarioLectorEntity comentario) {
+	        this.comentario = UtilObject.getDefault(comentario, ComentarioLectorEntity.create());
+	        return this;
+	    }
 
-    private void setFechaReporte(final LocalDateTime fechaReporte) {
-        this.fechaReporte = UtilDate.getDefault(fechaReporte);
-    }
-    public static ReporteEntity getDefaultObject (){
-        return DEFAULT_OBJECT;
-    }
+	    public ReporteEntity setRazon(final String razon) {
+	        this.razon = UtilText.applyTrim(razon);
+	        return this;
+	    }
+
+	    public ReporteEntity setTipo(final TipoReporteEntity tipoReporte) {
+	        this.tipo = UtilObject.getDefault(tipoReporte, TipoReporteEntity.create());
+	        return this;
+	    }
+
+	    public ReporteEntity setFechaReporte(final LocalDateTime fechaReporte) {
+	        this.fechaReporte = UtilDate.getDefault(fechaReporte);
+	        return this;
+	    }
+	    private ReporteEntity setEstado(EstadoEntity estado) {
+			this.estado = UtilObject.getDefault(estado, EstadoEntity.create());
+			return this;
+		}
+	    public static ReporteEntity getDefaultObject (){
+	        return new ReporteEntity();
+	    }
 }
