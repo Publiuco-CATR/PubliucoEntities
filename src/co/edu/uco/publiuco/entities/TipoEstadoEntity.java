@@ -6,7 +6,7 @@ import co.edu.uco.publiuco.utils.UtilUUID;
 import java.util.UUID;
 
 public class TipoEstadoEntity {
-    private UUID identificador;
+	private UUID identificador;
     private String nombre;
     private String descripcion;
 
@@ -19,20 +19,6 @@ public class TipoEstadoEntity {
         setIdentificador(identificador);
         setNombre(nombre);
         setDescripcion(descripcion);
-    }
-    
-    
-    
-    public static final TipoEstadoEntity createWithIdentificador(final UUID identificador) {
-    	return new TipoEstadoEntity(identificador, UtilText.getDefaultValue(), UtilText.getDefaultValue());
-    }
-    
-    public static final TipoEstadoEntity createWithNombre(final String nombre) {
-    	return new TipoEstadoEntity(UtilUUID.getDefaultValue(), nombre, UtilText.getDefaultValue());
-    }
-    
-    public static final TipoEstadoEntity createWithDescripcion(final String descripcion) {
-    	return new TipoEstadoEntity(UtilUUID.getDefaultValue(), UtilText.getDefaultValue(), descripcion);
     }
 
     public UUID getIdentificador() {
@@ -48,11 +34,7 @@ public class TipoEstadoEntity {
     }
 
 
-<<<<<<< HEAD
     public TipoEstadoEntity setIdentificador(final UUID identificador) {
-=======
-    private TipoEstadoEntity setIdentificador(final UUID identificador) {
->>>>>>> 227991b7ee19909cb0b8b027164a6abd743bab8b
         this.identificador = UtilUUID.getDefault(identificador);
         return this;
     }
