@@ -11,6 +11,7 @@ import java.util.UUID;
 public final class EstadoEntity {
     private UUID identificador;
     private String nombre;
+    private String descripcion;
     private TipoEstadoEntity tipo;
 
 
@@ -18,14 +19,16 @@ public final class EstadoEntity {
         super();
         setIdentificador(UtilUUID.getDefaultValue());
         setNombre(UtilText.getDefaultValue());
+        setDescripcion(UtilText.getDefaultValue());
         setTipo(TipoEstadoEntity.create());
     }
 
 
-    public EstadoEntity(UUID identificador, String nombre, TipoEstadoEntity tipo) {
+    public EstadoEntity(UUID identificador, String nombre, TipoEstadoEntity tipo, String descripcion) {
         super();
         setIdentificador(identificador);
         setNombre(nombre);
+        setDescripcion(descripcion);
         setTipo(tipo);
     }
 
@@ -36,6 +39,11 @@ public final class EstadoEntity {
 
     public final EstadoEntity setNombre(final String nombre) {
         this.nombre = UtilText.applyTrim(nombre);
+        return this;
+    }
+    
+    public final EstadoEntity setDescripcion(final String descripcion) {
+        this.descripcion = UtilText.applyTrim(descripcion);
         return this;
     }
 
@@ -56,6 +64,10 @@ public final class EstadoEntity {
     public final TipoEstadoEntity getTipo() {
         return tipo;
     }
+    
+    public String getDescripcion() {
+		return descripcion;
+	}
 
     public static EstadoEntity create(){
         return new EstadoEntity();

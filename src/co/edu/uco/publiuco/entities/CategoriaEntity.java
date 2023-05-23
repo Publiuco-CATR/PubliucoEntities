@@ -40,7 +40,6 @@ public class CategoriaEntity {
 		return tienePadre;
 	}
 
-
 	public UUID getIdentificador() {
         return identificador;
     }
